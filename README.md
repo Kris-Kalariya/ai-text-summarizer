@@ -1,39 +1,31 @@
-🧠 AI Text Summarization System
+🧠 AI Text Summarizer App
 🚀 Overview
 
-AI Text Summarizer is a powerful NLP-based web application that generates concise and meaningful summaries from long textual content using Transformer models (T5/BART).
+AI Text Summarizer is a Natural Language Processing (NLP) based application that uses HuggingFace Transformer models to convert long text into short, meaningful summaries.
 
-In today’s fast-paced world, users often struggle to read lengthy articles, documents, or conversations. This system helps by automatically converting long text into short, readable summaries while preserving key information.
+Text summarization condenses one or more pieces of text into shorter summaries while preserving the most important information. This helps users quickly understand large content without reading everything.
 
 🎯 Problem Statement
 
-Users face challenges such as:
+In today’s digital world:
 
-Reading long articles takes time
-Important insights are buried in large text
-Manual summarization is inefficient
-No quick way to extract key information
+Large text content is difficult to read
+Important information is hard to extract
+Manual summarization takes time
+Users need quick and efficient understanding
 
-This project solves the problem using Abstractive Text Summarization, where AI generates human-like summaries.
+This project solves the problem using AI-based abstractive text summarization.
 
-🧠 Solution Approach
-1️⃣ Data Processing
-Clean input text
-Remove unwanted characters
-Normalize text format
-2️⃣ Model Selection
-HuggingFace Transformer Models:
-t5-small (fast)
-facebook/bart-large-cnn (high quality)
-3️⃣ Tokenization
-Convert text → tokens using tokenizer
-Handle max input length
-4️⃣ Model Inference
-Generate summary using pre-trained model
-Control summary length
-5️⃣ API Integration
-FastAPI backend handles requests
-Sends response to frontend
+🧠 Solution
+
+The system uses Transformer models (T5/BART) from HuggingFace to generate human-like summaries.
+
+Key Steps:
+Take long text as input
+Process and clean the text
+Convert text into tokens
+Generate summary using AI model
+Return short and meaningful summary
 
 📂 Project Structure
 ```
@@ -63,7 +55,7 @@ ai-text-summarizer/
 │   └── experimentation.ipynb
 │
 ├── model/
-│   └── (optional saved model)
+│   └── (optional saved model files)
 │
 ├── tests/
 │   └── test_api.py
@@ -73,41 +65,34 @@ ai-text-summarizer/
 └── requirements.txt
 ```
 
-📊 System Workflow
-User enters text in UI
+⚙️ How It Works
+User enters long text
 Clicks Summarize
-Request sent to FastAPI backend
-Backend processes text
-Transformer model generates summary
-Summary returned to frontend
-Displayed to user
+Request sent to backend
+AI model processes text
+Summary is generated
+Output displayed to user
 
-🌐 UI Preview (Concept)
-Text input box
-"Summarize" button
-Output summary section
-
-📈 Key Features
-🔥 AI-powered abstractive summarization
-⚡ FastAPI backend for high performance
-🎯 High-quality summaries using Transformers
-🌐 Simple and clean UI
-🔄 Real-time response
-📦 Modular project structure
+🌐 Features
+🔥 AI-powered text summarization
+⚡ Fast and efficient processing
+🧠 Transformer-based model (T5/BART)
+🌐 Simple user interface
+🔄 Real-time summary generation
 
 🛠 Tech Stack
-🔹 Backend
+Backend
 Python
 FastAPI
-🔹 AI / NLP
+AI / NLP
 HuggingFace Transformers
 PyTorch
-🔹 Frontend
+Frontend
 HTML
 CSS
 JavaScript
 
-▶️ How to Run Locally
+▶️ How to Run
 1️⃣ Clone Repository
 git clone https://github.com/your-username/ai-text-summarizer.git
 cd ai-text-summarizer
@@ -117,46 +102,38 @@ python -m venv venv
 venv\Scripts\activate
 4️⃣ Install Dependencies
 pip install -r requirements.txt
-5️⃣ Run Backend Server
+5️⃣ Run Backend
 uvicorn backend.app.main:app --reload
 6️⃣ Open Frontend
 Open index.html in browser
 Enter text → Click summarize
 
 🧪 API Endpoint
-🔹 POST /summarize
+POST /summarize
 Input:
 {
-  "text": "Enter your long paragraph here..."
+  "text": "Enter your long text here..."
 }
 Output:
 {
-  "summary": "Generated short summary..."
+  "summary": "Short meaningful summary..."
 }
 
-📈 Example Use Cases
+📈 Use Cases
 Article summarization
+Study notes summarization
 News summarization
-Meeting notes summary
+Meeting notes
 Chat/message summarization
-Study notes compression
 
 🚀 Future Improvements
-🔥 Multi-language support
-🔥 PDF / DOC upload
-🔥 Voice input summarization
-🔥 Adjustable summary length
-🔥 Deploy on cloud (Render / HuggingFace Spaces)
-🔥 Add user authentication
-
-💡 Business Impact
-Saves time for users
-Improves productivity
-Enhances content readability
-Useful for students & professionals
-
+Multi-language support
+PDF/DOC upload
+Voice input
+Adjustable summary length
+Cloud deployment
 👨‍💻 Author
+
 Kris Kalariya
 AI/ML Engineer
-
 GitHub: https://github.com/Kris-Kalariya
