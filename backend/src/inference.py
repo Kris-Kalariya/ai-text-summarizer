@@ -1,6 +1,6 @@
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 import torch
-from src.preprocess import clean_data
+from backend.src.preprocess import clean_data
 
 # Load model
 model = T5ForConditionalGeneration.from_pretrained('models/saved_summery_model')

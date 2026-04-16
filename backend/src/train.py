@@ -1,8 +1,8 @@
 import pandas as pd
 from transformers import Trainer, TrainingArguments
-from src.preprocess import clean_data
-from src.tokenize_data import tokenize
-from src.model import load_model
+from backend.src.preprocess import clean_data
+from backend.src.tokenize_data import tokenize
+from backend.src.model import load_model
 
 # Load data
 train_data = pd.read_csv('data/samsum-train.csv')
