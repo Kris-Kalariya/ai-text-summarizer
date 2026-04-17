@@ -1,37 +1,38 @@
 from fastapi import FastAPI, Request
-from pydanticim import BaseModel
+from pydantic import BaseModel
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 import torch
 import re
-from fastapi.templating import Jinja2Templates        # UI
-from fastapi.responces import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
+# Initialize app
+app = FastAPI(
+    title="Text Summarization App",
+    description="Text Summarization using T5",
+    version="1.0"
+)
 
-# initialize you fastapi app
-app = FastAPI(title="Text Summarization App", description="Text Summarization using T5", version="1.0")
+# Load model
+model = T5ForConditionalGeneration.from_pretrained('./models/saved_summery_model')
+tokenizer = T5Tokenizer.from_pretrained('./models/saved_summery_model')
 
-# model and tokenizer
-model = T5ForConditionalGeneration.from_pretrained('./saved_summery_model')
-tokenizer = T5Tokenizer.from_pretrained('./saved_summery_model')
-
-# device
-if torch.cuda.is_available():
-    device = torch.device("cuda")
-else:
-    device = torch.device("cpu")
+# Device
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
-# templating
-templates = Jinja2Templates(directory="./frontend")
+# Templates
+templates = Jinja2Templates(directory="frontend")
 
-# Input schema for dialogue => string
+# Static files (optional but recommended)
+app.mount("/static", StaticFiles(directory="../frontend"), name="static")
 
+# Input schema
 class DialogueInput(BaseModel):
     dialogue: str
 
-
-# clean function
+# Clean function
 def clean_data(text):
     text = re.sub(r"\r\n", " ", str(text))
     text = re.sub(r"\s+", " ", text)
@@ -39,8 +40,8 @@ def clean_data(text):
     text = text.strip().lower()
     return text
 
-# summarization function
-def summarize_dialogue(dialogue : str) -> str:
+# Summarization
+def summarize_dialogue(dialogue: str) -> str:
     dialogue = clean_data(dialogue)
 
     inputs = tokenizer(
@@ -62,15 +63,13 @@ def summarize_dialogue(dialogue : str) -> str:
     summary = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return summary
 
-
-
-# API endpoints
-
+# API
 @app.post('/summarize/')
 async def summarize(dialogue_input: DialogueInput):
     summary = summarize_dialogue(dialogue_input.dialogue)
     return {'summary': summary}
 
-@app.get('/', response_class = HTMLResponse)
+# UI route
+@app.get('/', response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
